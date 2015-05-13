@@ -79,6 +79,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.c" />
+    <ClCompile Include="pclibs\genlib.c" />
+    <ClCompile Include="pclibs\random.c" />
+    <ClCompile Include="pclibs\simpio.c" />
+    <ClCompile Include="pclibs\strlib.c" />
     <ClCompile Include="StartFiles\IntExpInterp\scanadt.c" />
     <ClCompile Include="StartFiles\IntExpInterp\symtab.c" />
     <ClCompile Include="StartFiles\MFL\env.c" />
@@ -86,6 +90,10 @@
     <ClCompile Include="StartFiles\MFL\value.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pclibs\genlib.h" />
+    <ClInclude Include="pclibs\random.h" />
+    <ClInclude Include="pclibs\simpio.h" />
+    <ClInclude Include="pclibs\strlib.h" />
     <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />
     <ClInclude Include="StartFiles\IntExpInterp\symtab.h" />
     <ClInclude Include="StartFiles\MFL\env.h" />
@@ -97,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Docs\Lab3_DoP_MFL_2015.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="pclibs\PCLibs2010.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
