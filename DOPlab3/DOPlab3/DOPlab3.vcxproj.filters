@@ -33,18 +33,6 @@
     <ClCompile Include="StartFiles\IntExpInterp\scanadt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pclibs\genlib.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pclibs\random.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pclibs\simpio.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pclibs\strlib.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartFiles\MFL\env.h">

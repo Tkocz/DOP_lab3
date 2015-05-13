@@ -74,6 +74,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,10 +85,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.c" />
-    <ClCompile Include="pclibs\genlib.c" />
-    <ClCompile Include="pclibs\random.c" />
-    <ClCompile Include="pclibs\simpio.c" />
-    <ClCompile Include="pclibs\strlib.c" />
     <ClCompile Include="StartFiles\IntExpInterp\scanadt.c" />
     <ClCompile Include="StartFiles\IntExpInterp\symtab.c" />
     <ClCompile Include="StartFiles\MFL\env.c" />
