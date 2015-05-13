@@ -103,7 +103,8 @@
     <None Include="Docs\Lab3_DoP_MFL_2015.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="pclibs\PCLibs2010.lib" />
-    <Library Include="pclibs\PCLibs2012.lib" />
+    <Library Include="pclibs\PCLibs2012.lib">
+      <Filter>Resource Files</Filter>
+    </Library>
   </ItemGroup>
 </Project>

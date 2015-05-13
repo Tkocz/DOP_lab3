@@ -1,3 +1,4 @@
+
 /*Main.c*/
 #include "env.h"
 #include "eval.h"
@@ -7,13 +8,20 @@
 #include "value.h"
 #include "symtab.h"
 #include "scanadt.h"
+#include "exception.h"
+#include "genlib.h"
+#include "simpio.h"
+#include "strlib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 main(){
 	scannerADT scanner;
-	expressionADT exp;
+	expADT exp;
 	string line;
+	valueADT value;
+
 	InitVariableTable();
 	scanner = NewScanner();
 	SetScannerSpaceOption(scanner, IgnoreSpaces);
@@ -24,7 +32,7 @@ main(){
 			if (StringEqual(line, "quit")) exit(0);
 			SetScannerString(scanner, line);
 			exp = ParseExp(scanner);
-			value = EvalExp(exp);
+			value = Evalexp(exp);
 			printf("%d\n", value);
 			except(ErrorException)
 				printf("Error: %s\n", (string)GetExceptionValue());
