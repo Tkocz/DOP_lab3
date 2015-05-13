@@ -24,6 +24,15 @@
     <ClCompile Include="StartFiles\MFL\value.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartFiles\IntExpInterp\symtab.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StartFiles\IntExpInterp\scanadt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartFiles\MFL\env.h">
@@ -42,6 +51,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartFiles\MFL\value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartFiles\IntExpInterp\symtab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StartFiles\IntExpInterp\scanadt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

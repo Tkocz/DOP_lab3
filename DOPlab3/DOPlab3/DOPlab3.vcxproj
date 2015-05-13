@@ -78,11 +78,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.c" />
+    <ClCompile Include="StartFiles\IntExpInterp\scanadt.c" />
+    <ClCompile Include="StartFiles\IntExpInterp\symtab.c" />
     <ClCompile Include="StartFiles\MFL\env.c" />
     <ClCompile Include="StartFiles\MFL\exp.c" />
     <ClCompile Include="StartFiles\MFL\value.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />
+    <ClInclude Include="StartFiles\IntExpInterp\symtab.h" />
     <ClInclude Include="StartFiles\MFL\env.h" />
     <ClInclude Include="StartFiles\MFL\eval.h" />
     <ClInclude Include="StartFiles\MFL\exp.h" />
