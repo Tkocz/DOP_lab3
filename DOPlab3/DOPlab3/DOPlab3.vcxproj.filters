@@ -83,11 +83,27 @@
     <ClInclude Include="pclibs\strlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pclibs\exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pclibs\extgraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pclibs\gcalloc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pclibs\graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pclibs\mazelib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Docs\Lab3_DoP_MFL_2015.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="pclibs\PCLibs2010.lib" />
+    <Library Include="pclibs\PCLibs2012.lib" />
   </ItemGroup>
 </Project>
