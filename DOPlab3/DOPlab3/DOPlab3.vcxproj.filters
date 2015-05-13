@@ -15,24 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="StartFiles\IntExpInterp\eval.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StartFiles\IntExpInterp\exp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StartFiles\IntExpInterp\interp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StartFiles\IntExpInterp\parser.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StartFiles\IntExpInterp\scanadt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StartFiles\IntExpInterp\symtab.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StartFiles\MFL\env.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -44,21 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StartFiles\IntExpInterp\eval.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartFiles\IntExpInterp\exp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartFiles\IntExpInterp\parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartFiles\IntExpInterp\scanadt.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartFiles\IntExpInterp\symtab.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StartFiles\MFL\env.h">
       <Filter>Header Files</Filter>
     </ClInclude>
