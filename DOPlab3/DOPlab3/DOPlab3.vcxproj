@@ -85,6 +85,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.c" />
+    <ClCompile Include="parser.c" />
+    <ClCompile Include="printer.c" />
     <ClCompile Include="StartFiles\IntExpInterp\scanadt.c" />
     <ClCompile Include="StartFiles\IntExpInterp\symtab.c" />
     <ClCompile Include="StartFiles\MFL\env.c" />
@@ -101,6 +103,7 @@
     <ClInclude Include="pclibs\random.h" />
     <ClInclude Include="pclibs\simpio.h" />
     <ClInclude Include="pclibs\strlib.h" />
+    <ClInclude Include="printer.h" />
     <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />
     <ClInclude Include="StartFiles\IntExpInterp\symtab.h" />
     <ClInclude Include="StartFiles\MFL\env.h" />
