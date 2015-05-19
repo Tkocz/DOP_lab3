@@ -41,6 +41,9 @@ expADT ReadE(scannerADT scanner)
 			comp = NewCompoundExp(token[0], exp, ReadE(scanner));
 			return (comp);
 		}
+		if (token[0] == ')'){
+			return (exp);
+		}
 		else Error("Invalid expresion ReadE");
 	}
 	return (exp);
@@ -78,6 +81,9 @@ expADT ReadT(scannerADT scanner){
 		if (token[0] == '*' || token[0] == '/'){
 			comp = NewCompoundExp(token[0], exp, ReadT(scanner));
 			return (comp);
+		}
+		if (token[0] == ')'){
+			return (exp);
 		}
 		else Error("Invalid expression ReadT");
 	}

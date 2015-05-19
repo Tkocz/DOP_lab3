@@ -22,7 +22,7 @@ main(){
 	string line;
 	valueADT value;
 
-	InitVariableTable();
+	//InitVariableTable();
 	scanner = NewScanner();
 	SetScannerSpaceOption(scanner, IgnoreSpaces);
 	while (TRUE) {
@@ -32,8 +32,9 @@ main(){
 			if (StringEqual(line, "quit")) exit(0);
 			SetScannerString(scanner, line);
 			exp = ParseExp(scanner);
-			value = Evalexp(exp);
-			printf("%d\n", value);
+			printExp(exp);
+			/*value = Evalexp(exp);
+			printf("%d\n", value);*/
 			except(ErrorException)
 				printf("Error: %s\n", (string)GetExceptionValue());
 		} endtry
