@@ -15,13 +15,13 @@
 #include "env.h"
 
 /*
- * Function: EvalExp
- * Usage: n = EvalExp(exp);
+ * Function: Eval
+ * Usage: n = Eval(exp);
  * ------------------------
  * This function evaluates an expression and returns its value.
  */
 
-int EvalExp(expADT exp);
+valueADT Eval(expADT exp, environmentADT env);
 
 /*
  * Function: InitVariableTable

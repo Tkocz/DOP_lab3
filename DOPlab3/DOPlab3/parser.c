@@ -151,6 +151,7 @@ static expADT ReadF(scannerADT scanner) {
 				if (MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), "else")) {
 					elseE = ReadE(scanner);
 					exp = NewIfExp(exp1, relOp, exp2, thenE, elseE);
+					return exp;
 				}
 				else {
 					Error("No Else statement found");
@@ -160,6 +161,20 @@ static expADT ReadF(scannerADT scanner) {
 				Error("No Then statement found");
 
 		}
+	}
+	else if (StringEqual(token, "func")) {
+		if (StringEqual(ReadToken(scanner), "(")) {
+			token = ReadToken(scanner);
+			if (StringEqual(ReadToken(scanner), ")") && StringEqual(ReadToken(scanner), "{")) {
+				exp2 = ReadE(scanner);
+				if (!StringEqual(ReadToken(scanner), "}"))
+					Error("Unbalanced expression");
+				exp = NewFuncExp(token, exp2);
+				return exp;
+			}
+		}
+		else
+		Error("Missing parameter parenthesis");
 	}
 	else if (isdigit(token[0])) {
 		exp = NewIntegerExp(StringToInteger(token));

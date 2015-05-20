@@ -42,6 +42,9 @@
     <ClCompile Include="print.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cmdfnt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartFiles\MFL\env.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartFiles\eval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cmdfnt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

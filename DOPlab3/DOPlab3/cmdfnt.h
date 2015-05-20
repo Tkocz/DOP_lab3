@@ -1,4 +1,20 @@
 /*
+* File: env.h
+* ------------
+* This file is the interface to the environment module, which
+* represents the environment (set of definitions) available
+* in a certain lexical scope in MFL.
+*/
+
+#ifndef _cmdfnt_h
+#define _cmdfnt_h
+
+#include "strlib.h"
+#include <stdio.h>
+#include "genlib.h"
+#include "symtab.h"
+
+/*
 * Type: commandFnT
 * ----------------
 * This type defines the class of command functions.
@@ -21,3 +37,8 @@ typedef struct {
 * their corresponding actions.
 */
 static symtabADT commandTable;
+
+void InitCommandTable(void);
+void ExecuteCommand(string cmd);
+
+#endif

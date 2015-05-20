@@ -21,11 +21,11 @@ static symtabADT variableTable;
 
 /* Private function prototypes */
 
-static int EvalCompound(expADT exp);
+static valueADT EvalCompound(expADT exp);
 
 /* Exported entries */
 
-int EvalExp(expADT exp)
+valueADT Eval(expADT exp, environmentADT env)
 {
 	switch (ExpType(exp)) {
 	case ConstExp: {
@@ -54,7 +54,7 @@ void InitVariableTable(void)
 	variableTable = NewSymbolTable();
 }
 
-int GetIdValue(string name)
+valueADT GetIdValue(string name)
 {
 	int *ip;
 
@@ -63,7 +63,7 @@ int GetIdValue(string name)
 	return (*ip);
 }
 
-void SetIdValue(string name, int value)
+void SetIdValue(string name, valueADT value)
 {
 	int *ip;
 
@@ -74,24 +74,28 @@ void SetIdValue(string name, int value)
 
 /* Private functions */
 
-static int EvalCompound(expADT exp)
+static valueADT EvalCompound(expADT exp, environmentADT parent)
 {
 	char op;
+	valueADT value;
 	int lhs, rhs;
+
+	environmentADT current;
+	current = NewClosure(parent);
 
 	op = ExpOperator(exp);
 	if (op == '=') {
-		rhs = EvalExp(ExpRHS(exp));
-		SetIdValue(ExpIdentifier(ExpLHS(exp)), rhs);
+		SetIdValue(ExpIdentifier(ExpLHS(exp)), Eval(ExpRHS(exp), current));
 		return (rhs);
 	}
-	lhs = EvalExp(ExpLHS(exp));
-	rhs = EvalExp(ExpRHS(exp));
+	lhs = GetIntValue(Eval(ExpLHS(exp), current));
+	rhs = GetIntValue(Eval(ExpRHS(exp), current));
+
 	switch (op) {
-	case '+': return (lhs + rhs);
-	case '-': return (lhs - rhs);
-	case '*': return (lhs * rhs);
-	case '/': return (lhs / rhs);
+	case '+': return NewIntegerValue(lhs + rhs);
+	case '-': return NewIntegerValue(lhs - rhs);
+	case '*': return NewIntegerValue(lhs * rhs);
+	case '/': return NewIntegerValue(lhs / rhs);
 	default:  Error("Illegal operator");
 	}
 }
@@ -101,10 +105,10 @@ static int EvalIfExp(expADT exp) {
 	int lhs, rhs, thenSum, elseSum;
 
 	op = GetIfRelOp(exp);
-	lhs = (EvalExp(GetIfLHSExpression(exp)));
-	rhs = (EvalExp(GetIfRHSExpression(exp)));
-	thenSum = (EvalExp(GetIfThenPart(exp)));
-	elseSum = (EvalExp(GetIfElsePart(exp)));
+	lhs = (Eval(GetIfLHSExpression(exp)));
+	rhs = (Eval(GetIfRHSExpression(exp)));
+	thenSum = (Eval(GetIfThenPart(exp)));
+	elseSum = (Eval(GetIfElsePart(exp)));
 
 	switch (op) {
 	case '<':
