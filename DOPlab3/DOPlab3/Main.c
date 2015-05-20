@@ -79,7 +79,11 @@ static void LoadCmd(void)
 }
 static void DefineCmd(void)
 {
+	string filename = "";
+	while (MoreTokensExist(scanner))
+		filename = Concat(filename, ReadToken(scanner));
 	printf("Command = define\n");
+
 }
 static void HelpCmd(void)
 {
