@@ -140,8 +140,11 @@ static expADT ReadF(scannerADT scanner) {
 			}
 			exp1 = ReadE(scanner);
 			token = ReadToken(scanner);
-			// TODO: felkontroll!
-			relOp = token[0];
+		
+			if (token[0] == '<' || token[0] == '>' || token[0] == '=')
+				relOp = token[0];
+			else Error("Unknown RelOp");
+
 			exp2 = ReadE(scanner);
 			if (StringEqual(parenthesisCheck, "(")) {
 				parenthesisCheck = ReadToken(scanner);
