@@ -21,7 +21,8 @@ static symtabADT variableTable;
 
 /* Private function prototypes */
 
-static valueADT EvalCompound(expADT exp);
+static valueADT EvalCompound(expADT exp, environmentADT env);
+static valueADT EvalIfExp(expADT exp, environmentADT env);
 
 /* Exported entries */
 
@@ -29,18 +30,18 @@ valueADT Eval(expADT exp, environmentADT env)
 {
 	switch (ExpType(exp)) {
 	case ConstExp: {
-		return (ExpInteger(exp));
+		return (NewIntegerValue(ExpInteger(exp)));
 	}
 	case IdentifierExp: {
 		return (GetIdValue(ExpIdentifier(exp)));
 	}
 	case CompoundExp:
-		return (EvalCompound(exp));
+		return (EvalCompound(exp, env));
 	case FuncExp:
 		//return ();
 		break;
 	case IfExp:
-		return (EvalIfExp(exp));
+		return (EvalIfExp(exp, env));
 	case CallExp:
 		//return ();
 		break;
@@ -54,7 +55,7 @@ void InitVariableTable(void)
 	variableTable = NewSymbolTable();
 }
 
-valueADT GetIdValue(string name)
+int GetIdValue(string name)
 {
 	int *ip;
 
@@ -100,15 +101,15 @@ static valueADT EvalCompound(expADT exp, environmentADT parent)
 	}
 }
 
-static int EvalIfExp(expADT exp) {
+static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	char op;
-	int lhs, rhs, thenSum, elseSum;
+	valueADT lhs, rhs, thenSum, elseSum;
 
 	op = GetIfRelOp(exp);
-	lhs = (Eval(GetIfLHSExpression(exp)));
-	rhs = (Eval(GetIfRHSExpression(exp)));
-	thenSum = (Eval(GetIfThenPart(exp)));
-	elseSum = (Eval(GetIfElsePart(exp)));
+	lhs = (Eval(GetIfLHSExpression(exp), env));
+	rhs = (Eval(GetIfRHSExpression(exp), env));
+	thenSum = (Eval(GetIfThenPart(exp), env));
+	elseSum = (Eval(GetIfElsePart(exp), env));
 
 	switch (op) {
 	case '<':

@@ -48,7 +48,7 @@ main(){
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
 				printExp(exp);
-				value = Eval(exp, NewEnvironment());
+				value = GetIntValue(Eval(exp, NewEnvironment()));
 				printf("%d\n", value);
 			}
 			except(ErrorException)

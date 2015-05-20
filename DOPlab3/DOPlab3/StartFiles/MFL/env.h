@@ -50,10 +50,10 @@ environmentADT NewClosure(environmentADT parent);
 valueADT GetIdentifierValue(environmentADT env, string name);
 
 /*
- * Function: SetIdentifier
- * Usage: SetIdentifier(env, name, exp, ctx);
+ * Function: DefineIdentifier
+ * Usage: DefineIdentifier(env, name, exp, ctx);
  * ---------------------------------------
- * This function sets the identifier to name the specified expression exp in
+ * This function defines the identifier to name the specified expression exp in
  * the environment env. The expression will be evaluated in the context ctx.
  * For global definitions env and ctx will be the same but this is not always
  * the case, e.g. for actual arguments in function calls.

@@ -1,4 +1,8 @@
 #include "parser.h"
+#include "strlib.h"
+#include "scanadt.h"
+#include <stdio.h>
+#include <ctype.h>
 
 static expADT ReadE(scannerADT scanner);
 static expADT ReadT(scannerADT scanner);
@@ -16,7 +20,7 @@ expADT ParseExp(scannerADT scanner)
 {
 	expADT exp;
 
-	exp = ReadE(scanner, 0);
+	exp = ReadE(scanner);
 	if (MoreTokensExist(scanner)) {
 		Error("ParseExp: %s unexpected", ReadToken(scanner));
 	}
@@ -36,8 +40,6 @@ static expADT ReadE(scannerADT scanner)
 {
 	expADT exp, comp;
 	string token;
-	int newPrec;
-
 
 	exp = ReadT(scanner);
 	if (MoreTokensExist(scanner)){
@@ -123,7 +125,7 @@ static expADT ReadF(scannerADT scanner) {
 	token = ReadToken(scanner);
 	if (token[0] == '(') {
 		exp = ReadE(scanner);
-		if (MoreTokensExist) {
+		if (MoreTokensExist(scanner)) {
 			token = ReadToken(scanner);
 			if (token[0] == ')')
 				return exp;
@@ -131,7 +133,7 @@ static expADT ReadF(scannerADT scanner) {
 		Error("Unbalanced parenthesis");
 	}
 	else if (StringEqual(token, "if")) {
-		if (MoreTokensExist) {
+		if (MoreTokensExist(scanner)) {
 			parenthesisCheck = ReadToken(scanner);
 			if (!StringEqual(parenthesisCheck, "(")) {
 				SaveToken(scanner, parenthesisCheck);
@@ -184,4 +186,5 @@ static expADT ReadF(scannerADT scanner) {
 		exp = NewIdentifierExp(token);
 		return exp;
 	}
+	else Error("Unknown error");
 }
