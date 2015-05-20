@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cmdfnt.c" />
     <ClCompile Include="eval.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="parser.c" />
@@ -95,6 +96,7 @@
     <ClCompile Include="StartFiles\MFL\value.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cmdfnt.h" />
     <ClInclude Include="pclibs\exception.h" />
     <ClInclude Include="pclibs\extgraph.h" />
     <ClInclude Include="pclibs\gcalloc.h" />
