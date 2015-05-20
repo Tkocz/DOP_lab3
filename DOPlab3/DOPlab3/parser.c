@@ -46,10 +46,7 @@ static expADT ReadE(scannerADT scanner)
 			comp = NewCompoundExp(token[0], exp, ReadE(scanner));
 			return (comp);
 		}
-		if (token[0] == ')'){
-			return (exp);
-		}
-		else Error("Invalid expresion ReadE");
+		SaveToken(scanner, token);
 	}
 	return (exp);
 }
@@ -79,18 +76,12 @@ static expADT ReadT(scannerADT scanner){
 	exp = ReadC(scanner);
 	if (MoreTokensExist(scanner)){
 		token = ReadToken(scanner);
-		if (token[0] == '+' || token[0] == '-'){
-			SaveToken(scanner, token);
-			return exp;
-		}
 		if (token[0] == '*' || token[0] == '/'){
 			comp = NewCompoundExp(token[0], exp, ReadT(scanner));
 			return (comp);
 		}
-		if (token[0] == ')'){
-			return (exp);
-		}
-		else Error("Invalid expression ReadT");
+		SaveToken(scanner, token);
+		return (exp);
 	}
 	return(exp);
 }
@@ -122,8 +113,8 @@ static expADT ReadC(scannerADT scanner) {
 }
 
 static expADT ReadF(scannerADT scanner) {
-	expADT exp, exp2, thenE, elseE;
-	string token;
+	expADT exp, exp1, exp2, thenE, elseE;
+	string token, parenthesisCheck;
 	char relOp;
 
 	if (!MoreTokensExist(scanner))
@@ -132,34 +123,43 @@ static expADT ReadF(scannerADT scanner) {
 	token = ReadToken(scanner);
 	if (token[0] == '(') {
 		exp = ReadE(scanner);
-		return exp;
+		if (MoreTokensExist) {
+			token = ReadToken(scanner);
+			if (token[0] == ')')
+				return exp;
+		}
+		Error("Unbalanced parenthesis");
 	}
 	else if (StringEqual(token, "if")) {
-		exp = ReadE(scanner);
-		token = ReadToken(scanner);
-		relOp = token[0];
-		exp2 = ReadE(scanner);
-		if (MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), "then")) {
-			thenE = ReadE(scanner);
-			if (MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), "else")) {
-				elseE = ReadE(scanner);
-				// EVAL GREJ!!
-				/*
-				if (relOp == '>')
-				if (exp > exp2)
-				return thenE;
-				else
-				return elseE;
-				if (relOp == '=')
-				if (exp == exp2)
-				*/
+		if (MoreTokensExist) {
+			parenthesisCheck = ReadToken(scanner);
+			if (!StringEqual(parenthesisCheck, "(")) {
+				SaveToken(scanner, parenthesisCheck);
+			}
+			exp1 = ReadE(scanner);
+			token = ReadToken(scanner);
+			// TODO: felkontroll!
+			relOp = token[0];
+			exp2 = ReadE(scanner);
+			if (StringEqual(parenthesisCheck, "(")) {
+				parenthesisCheck = ReadToken(scanner);
+				if (!StringEqual(parenthesisCheck, ")"))
+					Error("Unbalanced parenthesis in If-statement");
+			}
+			if (MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), "then")) {
+				thenE = ReadE(scanner);
+				if (MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), "else")) {
+					elseE = ReadE(scanner);
+					exp = NewIfExp(exp1, relOp, exp2, thenE, elseE);
+				}
+				else {
+					Error("No Else statement found");
+				}
 			}
 			else
-				Error("No Else statement found");
-		}
-		else
-			Error("No Then statement found");
+				Error("No Then statement found");
 
+		}
 	}
 	else if (isdigit(token[0])) {
 		exp = NewIntegerExp(StringToInteger(token));

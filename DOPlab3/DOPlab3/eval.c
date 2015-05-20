@@ -28,18 +28,19 @@ static int EvalCompound(expADT exp);
 int EvalExp(expADT exp)
 {
 	switch (ExpType(exp)) {
-	case ConstExp:
+	case ConstExp: {
 		return (ExpInteger(exp));
-	case IdentifierExp:
+	}
+	case IdentifierExp: {
 		return (GetIdValue(ExpIdentifier(exp)));
+	}
 	case CompoundExp:
 		return (EvalCompound(exp));
 	case FuncExp:
 		//return ();
 		break;
 	case IfExp:
-		//return ();
-		break;
+		return (EvalIfExp(exp));
 	case CallExp:
 		//return ();
 		break;
@@ -92,5 +93,27 @@ static int EvalCompound(expADT exp)
 	case '*': return (lhs * rhs);
 	case '/': return (lhs / rhs);
 	default:  Error("Illegal operator");
+	}
+}
+
+static int EvalIfExp(expADT exp) {
+	char op;
+	int lhs, rhs, thenSum, elseSum;
+
+	op = GetIfRelOp(exp);
+	lhs = (EvalExp(GetIfLHSExpression(exp)));
+	rhs = (EvalExp(GetIfRHSExpression(exp)));
+	thenSum = (EvalExp(GetIfThenPart(exp)));
+	elseSum = (EvalExp(GetIfElsePart(exp)));
+
+	switch (op) {
+	case '<':
+		return (lhs < rhs ? thenSum : elseSum);
+	case '=':
+		return (lhs == rhs ? thenSum : elseSum);
+	case '>':
+		return (lhs > rhs ? thenSum : elseSum);
+	default:
+		Error("Unknown operator");
 	}
 }

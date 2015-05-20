@@ -7,10 +7,13 @@ void printExp(expADT expression) {
 		printExp(GetFuncBody(expression));
 		break;
 	case IfExp:
+		printf("if \n");
 		printExp(GetIfLHSExpression(expression));
+		printf("RelOp: %c\n", GetIfRelOp(expression));
 		printExp(GetIfRHSExpression(expression));
-		printf("Operator? %c\n", GetIfRelOp(expression));
+		printf("then \n");
 		printExp(GetIfThenPart(expression));
+		printf("else \n");
 		printExp(GetIfElsePart(expression));
 		break;
 	case CallExp:
