@@ -10,6 +10,7 @@
 #include "exp.h"
 #include "eval.h"
 #include "symtab.h"
+#include "env.h"
 
 /*
 * Private variable: variableTable
@@ -103,11 +104,12 @@ static valueADT EvalCompound(expADT exp, environmentADT parent)
 
 static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	char op;
-	valueADT lhs, rhs, thenSum, elseSum;
+	valueADT  thenSum, elseSum;
+	int lhs, rhs;
 
 	op = GetIfRelOp(exp);
-	lhs = (Eval(GetIfLHSExpression(exp), env));
-	rhs = (Eval(GetIfRHSExpression(exp), env));
+	lhs = GetIntValue(Eval(GetIfLHSExpression(exp), env));
+	rhs = GetIntValue(Eval(GetIfRHSExpression(exp), env));
 	thenSum = (Eval(GetIfThenPart(exp), env));
 	elseSum = (Eval(GetIfElsePart(exp), env));
 
