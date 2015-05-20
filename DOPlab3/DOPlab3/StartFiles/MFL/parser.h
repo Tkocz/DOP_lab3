@@ -21,9 +21,5 @@
  */
 
 expADT ParseExp(scannerADT scanner);
-expADT ReadE(scannerADT scanner);
-expADT ReadT(scannerADT scanner);
-expADT ReadC(scannerADT scanner);
-expADT ReadF(scannerADT scanner);
 
 #endif
