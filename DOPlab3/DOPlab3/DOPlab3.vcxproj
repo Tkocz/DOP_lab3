@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="eval.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="parser.c" />
     <ClCompile Include="printer.c" />
