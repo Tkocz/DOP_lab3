@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Docs\Lab3_DoP_MFL_2015.pdf" />
+    <None Include="test.mfl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="pclibs\PCLibs2012.lib" />

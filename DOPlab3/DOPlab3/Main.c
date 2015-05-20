@@ -12,21 +12,19 @@
 #include "simpio.h"
 #include "strlib.h"
 #include "cmdfnt.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 static void defineCommandTable();
 void LoadCmd(void);
 void DefineCmd(void);
 void HelpCmd(void);
 void QuitCmd(void);
+void loadfile(string filename);
 
 static scannerADT scanner;
 
 main(){
 	expADT exp;
-	string line, token;
+	string line, token, command, variable;
 	valueADT value;
 
 	InitVariableTable();
@@ -42,8 +40,10 @@ main(){
 			SetScannerString(scanner, line);
 			token = ReadToken(scanner);
 			
-			if (token[0] == ':')
-				ExecuteCommand(ReadToken(scanner));
+			if (token[0] == ':'){
+				command = ReadToken(scanner);
+				ExecuteCommand(command);
+			}
 			else{
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
@@ -71,7 +71,11 @@ static void defineCommandTable() {
 /* Command dispatch functions */
 static void LoadCmd(void)
 {
+	string filename = "";
+	while (MoreTokensExist(scanner))
+		filename = Concat(filename, ReadToken(scanner));
 	printf("Command = load\n");
+	loadfile(filename);
 }
 static void DefineCmd(void)
 {
@@ -85,4 +89,19 @@ static void QuitCmd(void)
 {
 	printf("Command = quit\n");
 	exit(0);
+}
+void loadfile(string filename){
+	FILE *infile;
+	string tempLine;
+	infile = fopen(filename, "r");
+	if (infile == NULL)
+		Error("Cant open file");
+	while (tempLine = ReadLine(infile)){
+		if (!(tempLine[0] == '#')){
+			printf("%s\n", tempLine);
+			//lägg in riktig funktionalitet
+		}
+	}
+
+	fclose(infile);
 }

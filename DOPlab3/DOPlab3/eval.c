@@ -39,13 +39,13 @@ valueADT Eval(expADT exp, environmentADT env)
 	case CompoundExp:
 		return (EvalCompound(exp, env));
 	case FuncExp:
-		//return ();
-		break;
+		return (GetFuncBody(exp));
+		//break;
 	case IfExp:
 		return (EvalIfExp(exp, env));
 	case CallExp:
-		//return ();
-		break;
+		return (GetCallActualArg(exp));
+		//break;
 	default:
 		Error("Unidentified Evaluation");
 	}
