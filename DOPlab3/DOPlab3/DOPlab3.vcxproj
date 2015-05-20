@@ -105,6 +105,7 @@
     <ClInclude Include="pclibs\simpio.h" />
     <ClInclude Include="pclibs\strlib.h" />
     <ClInclude Include="printer.h" />
+    <ClInclude Include="StartFiles\eval.h" />
     <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />
     <ClInclude Include="StartFiles\IntExpInterp\symtab.h" />
     <ClInclude Include="StartFiles\MFL\env.h" />

@@ -22,7 +22,7 @@ main(){
 	string line;
 	valueADT value;
 
-	//InitVariableTable();
+	InitVariableTable();
 	scanner = NewScanner();
 	SetScannerSpaceOption(scanner, IgnoreSpaces);
 	while (TRUE) {

@@ -1,5 +1,10 @@
 #include "parser.h"
 
+static expADT ReadE(scannerADT scanner);
+static expADT ReadT(scannerADT scanner);
+static expADT ReadC(scannerADT scanner);
+static expADT ReadF(scannerADT scanner);
+
 /*
 * Implementation notes: ParseExp
 * ------------------------------
@@ -27,7 +32,7 @@ expADT ParseExp(scannerADT scanner)
 * less that or equal to prec.
 */
 
-expADT ReadE(scannerADT scanner)
+static expADT ReadE(scannerADT scanner)
 {
 	expADT exp, comp;
 	string token;
@@ -63,7 +68,7 @@ expADT ReadE(scannerADT scanner)
 * In each case, the first token identifies the appropriate rule.
 */
 
-expADT ReadT(scannerADT scanner){
+static expADT ReadT(scannerADT scanner){
 	expADT exp;
 	string token;
 	expADT comp;
@@ -91,7 +96,7 @@ expADT ReadT(scannerADT scanner){
 }
 
 
-expADT ReadC(scannerADT scanner) {
+static expADT ReadC(scannerADT scanner) {
 	expADT exp;
 	string token;
 	string arg;
@@ -116,7 +121,7 @@ expADT ReadC(scannerADT scanner) {
 	return exp;
 }
 
-expADT ReadF(scannerADT scanner) {
+static expADT ReadF(scannerADT scanner) {
 	expADT exp, exp2, thenE, elseE;
 	string token;
 	char relOp;
