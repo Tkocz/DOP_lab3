@@ -11,6 +11,8 @@
 #define _eval_h
 
 #include "exp.h"
+#include "value.h"
+#include "env.h"
 
 /*
  * Function: EvalExp
@@ -19,7 +21,7 @@
  * This function evaluates an expression and returns its value.
  */
 
-int EvalExp(expressionADT exp);
+int EvalExp(expADT exp);
 
 /*
  * Function: InitVariableTable
@@ -38,7 +40,7 @@ void InitVariableTable(void);
  * This function returns the value of an identifier.
  */
 
-int GetIdentifierValue(string name);
+int GetIdValue(string name);
 
 /*
  * Function: SetIdentifierValue
@@ -47,6 +49,6 @@ int GetIdentifierValue(string name);
  * This function sets the identifier to have the specified value.
  */
 
-void SetIdentifierValue(string name, int value);
+void SetIdValue(string name, int value);
 
 #endif

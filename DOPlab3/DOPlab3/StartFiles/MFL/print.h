@@ -11,9 +11,9 @@
 #include "value.h"
 
 /* Pretty print a MFL expression. */
-void PrintExp(expADT exp);
+void printExp(expADT exp);
 
 /* Pretty print a MFL value. */
-void PrintValue(valueADT value);
+void printValue(valueADT value);
 
 #endif

@@ -34,21 +34,21 @@ int EvalExp(expADT exp);
 void InitVariableTable(void);
 
 /*
- * Function: GetIdentifierValue
- * Usage: value = GetIdentifierValue(name);
+ * Function: GetIdValue
+ * Usage: value = GetIdValue(name);
  * ----------------------------------------
  * This function returns the value of an identifier.
  */
 
-int GetIdentifierValue(string name);
+int GetIdValue(string name);
 
 /*
- * Function: SetIdentifierValue
- * Usage: SetIdentifierValue(name, value);
+ * Function: SetIdValue
+ * Usage: SetIdValue(name, value);
  * ---------------------------------------
  * This function sets the identifier to have the specified value.
  */
 
-void SetIdentifierValue(string name, int value);
+void SetIdValue(string name, int value);
 
 #endif

@@ -31,7 +31,7 @@ int EvalExp(expADT exp)
 	case ConstExp:
 		return (ExpInteger(exp));
 	case IdentifierExp:
-		return (GetIdentifierValue(ExpIdentifier(exp)));
+		return (GetIdValue(ExpIdentifier(exp)));
 	case CompoundExp:
 		return (EvalCompound(exp));
 	case FuncExp:
@@ -53,7 +53,7 @@ void InitVariableTable(void)
 	variableTable = NewSymbolTable();
 }
 
-int GetIdentifierValue(string name)
+int GetIdValue(string name)
 {
 	int *ip;
 
@@ -62,7 +62,7 @@ int GetIdentifierValue(string name)
 	return (*ip);
 }
 
-void SetIdentifierValue(string name, int value)
+void SetIdValue(string name, int value)
 {
 	int *ip;
 
@@ -81,7 +81,7 @@ static int EvalCompound(expADT exp)
 	op = ExpOperator(exp);
 	if (op == '=') {
 		rhs = EvalExp(ExpRHS(exp));
-		SetIdentifierValue(ExpIdentifier(ExpLHS(exp)), rhs);
+		SetIdValue(ExpIdentifier(ExpLHS(exp)), rhs);
 		return (rhs);
 	}
 	lhs = EvalExp(ExpLHS(exp));

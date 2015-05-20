@@ -33,21 +33,18 @@
     <ClCompile Include="StartFiles\IntExpInterp\scanadt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="printer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="parser.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="eval.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="print.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StartFiles\MFL\env.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StartFiles\MFL\eval.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartFiles\MFL\exp.h">
@@ -93,9 +90,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pclibs\mazelib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="printer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StartFiles\eval.h">

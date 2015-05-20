@@ -1,4 +1,4 @@
-#include "printer.h"
+#include "print.h"
 
 void printExp(expADT expression) {
 	switch (ExpType(expression)) {

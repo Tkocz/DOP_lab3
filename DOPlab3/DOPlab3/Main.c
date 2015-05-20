@@ -33,7 +33,7 @@ main(){
 			SetScannerString(scanner, line);
 			exp = ParseExp(scanner);
 			printExp(exp);
-			value = Eval(exp, NewEnvironment());
+			value = EvalExp(exp); // , NewEnvironment());
 			printf("%d\n", value);
 			except(ErrorException)
 				printf("Error: %s\n", (string)GetExceptionValue());
