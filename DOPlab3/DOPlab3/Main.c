@@ -28,7 +28,7 @@ main(){
 	valueADT value;
 	environmentADT env;
 
-	system("COLOR 0D");
+	system("COLOR 0A");
 
 	env = NewEnvironment();
 
@@ -44,7 +44,7 @@ main(){
 			line = GetLine();
 			SetScannerString(scanner, line);
 			token = ReadToken(scanner);
-			
+
 			if (token[0] == ':'){
 				command = ReadToken(scanner);
 				ExecuteCommand(command, env);
@@ -53,7 +53,7 @@ main(){
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
 				printExp(exp);
-				value = GetIntValue(Eval(exp, env));
+				value = GetIntValue(Evaluating(exp, env));
 				printf("%d\n", value);
 			}
 			except(ErrorException)
@@ -80,32 +80,49 @@ static void LoadCmd(environmentADT env)
 	while (MoreTokensExist(scanner))
 		filename = Concat(filename, ReadToken(scanner));
 	printf("Command = load\n");
-	loadfile(filename);
+	loadfile(filename,scanner);
 }
 static void DefineCmd(environmentADT env) {
-	string token;
-	expADT definition;
+	string token,id;
+	expADT defination;
 	printf("Command = define\n");
-	if (MoreTokensExist(scanner)) {
-		token = ReadToken(scanner);
-		if (StringEqual(ReadToken(scanner), "=")) {
-			definition = ParseExp(scanner);
-			switch (ExpType(definition)) {
-			case FuncExp:
-				printf("function!\n");
-				printf("argument: %s\n", GetFuncFormalArg(definition));
-				printExp(GetFuncBody(definition));
-				SetIdValue(token, NewFuncValue(GetFuncFormalArg(definition), GetFuncBody(definition), env));
-				break;
-			default:
-				SetIdValue(token, NewFuncValue("", ExpIdentifier(definition), env));
-			}
-		}
-		else Error("Cannot load definition: %s\n", token);
+	id = ReadToken(scanner);
+	if (StringEqual(ReadToken(scanner), "=")== TRUE){
+		defination = ParseExp(scanner);
 	}
-	else Error("Empty definition");
+	else {
+		Error("Expecting '=' in define\n");
+	}
+	if (MoreTokensExist(scanner))
+		Error("Define: %s unexpected", ReadToken(scanner));
 
+	DefineIdentifier(env, id, defination, env);
 }
+
+
+/*string token;
+expADT definition;
+printf("Command = define\n");
+if (MoreTokensExist(scanner)) {
+token = ReadToken(scanner);
+if (StringEqual(ReadToken(scanner), "=")) {
+definition = ParseExp(scanner);
+switch (ExpType(definition)) {
+case FuncExp:
+printf("function!\n");
+printf("argument: %s\n", GetFuncFormalArg(definition));
+printExp(GetFuncBody(definition));
+SetIdValue(token, NewFuncValue(GetFuncFormalArg(definition), GetFuncBody(definition), env));
+break;
+default:
+SetIdValue(token, NewFuncValue("", ExpIdentifier(definition), env));
+}
+}
+else Error("Cannot load definition: %s\n", token);
+}
+else Error("Empty definition");
+
+}*/
 static void HelpCmd(environmentADT env)
 {
 	printf("Command = help\n");
@@ -126,6 +143,7 @@ void loadfile(string filename){
 			//lägg in riktig funktionalitet
 		}
 	}
-	 
+
 	fclose(infile);
 }
+

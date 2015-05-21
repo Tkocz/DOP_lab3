@@ -20,30 +20,51 @@
 
 static symtabADT variableTable;
 
+
+/* static variables */
+static int numberOfRecursion = 0;
+
+
 /* Private function prototypes */
 
 static valueADT EvalCompound(expADT exp, environmentADT env);
 static valueADT EvalIfExp(expADT exp, environmentADT env);
+static valueADT evalFunc(expADT exp, environmentADT env);
+static valueADT evalCall(expADT exp, environmentADT env);
 
 /* Exported entries */
 
-valueADT Eval(expADT exp, environmentADT env)
-{
+
+valueADT Evaluating(expADT exp, environmentADT env){
+	valueADT result;
+
+	numberOfRecursion = 0;
+
+	return (Eval(exp, env));
+}
+
+valueADT Eval(expADT exp, environmentADT env){
+
+	if (numberOfRecursion > 1000){
+		Error("Stack overflow.Too deep recursion.");
+	}
+	numberOfRecursion = numberOfRecursion + 1;
+
 	switch (ExpType(exp)) {
 	case ConstExp: {
 		return (NewIntegerValue(ExpInteger(exp)));
 	}
 	case IdentifierExp: {
-		return (GetIdValue(ExpIdentifier(exp)));
+		return (GetIdValue(ExpIdentifier(exp),env));
 	}
 	case CompoundExp:
 		return (EvalCompound(exp, env));
 	case FuncExp:
-		return (GetFuncBody(exp));
+		return (evalFunc(exp,env));
 	case IfExp:
 		return (EvalIfExp(exp, env));
 	case CallExp:
-		return (GetCallActualArg(exp));
+		return (evalCall(exp,env));
 	default:
 		Error("Unidentified Evaluation");
 	}
@@ -54,12 +75,12 @@ void InitVariableTable(void)
 	variableTable = NewSymbolTable();
 }
 
-valueADT GetIdValue(string name) {
+valueADT GetIdValue(string name,environmentADT env) {
 	valueADT ip;
 
-	ip = Lookup(variableTable, name);
-	if (ip == UNDEFINED)  Error("Unknown identifier %s", name);
-	return (ip);
+	ip = GetIdentifierValue(env, name);
+	//if (ip == UNDEFINED)  Error("Unknown identifier %s", name);
+	return (Eval(GetFuncValueBody(ip),(environmentADT)GetFuncValueClosure(ip)));
 }
 
 void SetIdValue(string name, valueADT value) {
@@ -115,4 +136,18 @@ static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	default:
 		Error("Unknown operator");
 	}
+}
+
+static valueADT evalCall(expADT exp, environmentADT env){
+
+}
+
+static valueADT evalFunc(expADT exp, environmentADT env){
+	string arg;
+	expADT body;
+
+	arg = GetFuncFormalArg(exp);
+	body = GetFuncBody(exp);
+
+	return NewFuncValue(arg, body, env);
 }

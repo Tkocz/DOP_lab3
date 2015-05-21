@@ -1,4 +1,5 @@
 #include "cmdfnt.h"
+#include "scanadt.h"
 
 static symtabADT commandTable;
 
