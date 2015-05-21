@@ -28,6 +28,8 @@ main(){
 	valueADT value;
 	environmentADT env;
 
+	system("COLOR 0D");
+
 	env = NewEnvironment();
 
 	InitVariableTable();
