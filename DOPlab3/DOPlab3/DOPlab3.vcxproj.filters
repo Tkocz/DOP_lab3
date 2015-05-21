@@ -95,10 +95,10 @@
     <ClInclude Include="pclibs\mazelib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="StartFiles\eval.h">
+    <ClInclude Include="cmdfnt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cmdfnt.h">
+    <ClInclude Include="eval.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

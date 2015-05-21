@@ -14,10 +14,10 @@
 #include "cmdfnt.h"
 
 static void defineCommandTable();
-void LoadCmd(void);
-void DefineCmd(void);
-void HelpCmd(void);
-void QuitCmd(void);
+void LoadCmd(environmentADT env);
+void DefineCmd(environmentADT env);
+void HelpCmd(environmentADT env);
+void QuitCmd(environmentADT env);
 void loadfile(string filename);
 
 static scannerADT scanner;
@@ -26,6 +26,9 @@ main(){
 	expADT exp;
 	string line, token, command, variable;
 	valueADT value;
+	environmentADT env;
+
+	env = NewEnvironment();
 
 	InitVariableTable();
 	InitCommandTable();
@@ -42,13 +45,13 @@ main(){
 			
 			if (token[0] == ':'){
 				command = ReadToken(scanner);
-				ExecuteCommand(command);
+				ExecuteCommand(command, env);
 			}
 			else{
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
 				printExp(exp);
-				value = GetIntValue(Eval(exp, NewEnvironment()));
+				value = GetIntValue(Eval(exp, env));
 				printf("%d\n", value);
 			}
 			except(ErrorException)
@@ -69,7 +72,7 @@ static void defineCommandTable() {
 }
 
 /* Command dispatch functions */
-static void LoadCmd(void)
+static void LoadCmd(environmentADT env)
 {
 	string filename = "";
 	while (MoreTokensExist(scanner))
@@ -77,21 +80,36 @@ static void LoadCmd(void)
 	printf("Command = load\n");
 	loadfile(filename);
 }
-static void DefineCmd(void)
-{
-	string filename = "";
-	while (MoreTokensExist(scanner))
-		filename = Concat(filename, ReadToken(scanner));
+static void DefineCmd(environmentADT env) {
+	string token;
+	expADT definition;
 	printf("Command = define\n");
+	if (MoreTokensExist(scanner)) {
+		token = ReadToken(scanner);
+		if (StringEqual(ReadToken(scanner), "=")) {
+			definition = ParseExp(scanner);
+			switch (ExpType(definition)) {
+			case FuncExp:
+				printf("function!\n");
+				printf("argument: %s\n", GetFuncFormalArg(definition));
+				printExp(GetFuncBody(definition));
+				SetIdValue(token, NewFuncValue(GetFuncFormalArg(definition), GetFuncBody(definition), env));
+				break;
+			default:
+				SetIdValue(token, NewFuncValue("", ExpIdentifier(definition), env));
+			}
+		}
+		else Error("Cannot load definition: %s\n", token);
+	}
+	else Error("Empty definition");
 
 }
-static void HelpCmd(void)
+static void HelpCmd(environmentADT env)
 {
 	printf("Command = help\n");
 }
-static void QuitCmd(void)
+static void QuitCmd(environmentADT env)
 {
-	printf("Command = quit\n");
 	exit(0);
 }
 void loadfile(string filename){

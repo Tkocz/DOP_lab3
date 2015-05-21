@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cmdfnt.h" />
+    <ClInclude Include="eval.h" />
     <ClInclude Include="pclibs\exception.h" />
     <ClInclude Include="pclibs\extgraph.h" />
     <ClInclude Include="pclibs\gcalloc.h" />
@@ -106,7 +107,6 @@
     <ClInclude Include="pclibs\random.h" />
     <ClInclude Include="pclibs\simpio.h" />
     <ClInclude Include="pclibs\strlib.h" />
-    <ClInclude Include="StartFiles\eval.h" />
     <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />
     <ClInclude Include="StartFiles\IntExpInterp\symtab.h" />
     <ClInclude Include="StartFiles\MFL\env.h" />

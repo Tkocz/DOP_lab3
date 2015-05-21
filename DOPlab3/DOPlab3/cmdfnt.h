@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "genlib.h"
 #include "symtab.h"
+#include "env.h"
 
 /*
 * Type: commandFnT
@@ -39,6 +40,6 @@ typedef struct {
 static symtabADT commandTable;
 
 void InitCommandTable(void);
-void ExecuteCommand(string cmd);
+void ExecuteCommand(string cmd, environmentADT env);
 
 #endif

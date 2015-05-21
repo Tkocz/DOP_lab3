@@ -40,12 +40,10 @@ valueADT Eval(expADT exp, environmentADT env)
 		return (EvalCompound(exp, env));
 	case FuncExp:
 		return (GetFuncBody(exp));
-		//break;
 	case IfExp:
 		return (EvalIfExp(exp, env));
 	case CallExp:
 		return (GetCallActualArg(exp));
-		//break;
 	default:
 		Error("Unidentified Evaluation");
 	}
@@ -56,22 +54,16 @@ void InitVariableTable(void)
 	variableTable = NewSymbolTable();
 }
 
-int GetIdValue(string name)
-{
-	int *ip;
+valueADT GetIdValue(string name) {
+	valueADT ip;
 
 	ip = Lookup(variableTable, name);
-	if (ip == UNDEFINED)  Error("%s is undefined", name);
-	return (*ip);
+	if (ip == UNDEFINED)  Error("Unknown identifier %s", name);
+	return (ip);
 }
 
-void SetIdValue(string name, valueADT value)
-{
-	int *ip;
-
-	ip = New(int *);
-	*ip = value;
-	Enter(variableTable, name, ip);
+void SetIdValue(string name, valueADT value) {
+	Enter(variableTable, name, value);
 }
 
 /* Private functions */

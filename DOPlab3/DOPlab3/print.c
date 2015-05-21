@@ -3,8 +3,9 @@
 void printExp(expADT expression) {
 	switch (ExpType(expression)) {
 	case FuncExp: 
-		printf("FuncExp: %s\n", GetFuncFormalArg(expression));
+		printf("FuncExp (%s) {\n", GetFuncFormalArg(expression));
 		printExp(GetFuncBody(expression));
+		printf("}\n");
 		break;
 	case IfExp:
 		printf("if \n");
@@ -27,9 +28,11 @@ void printExp(expADT expression) {
 		printf("IdentifierExp: %s\n", ExpIdentifier(expression));
 		break;
 	case CompoundExp:
+		printf("CompoundExp: (\n");
 		printExp(ExpLHS(expression));
 		printf("Operator: %c\n", ExpOperator(expression));
 		printExp(ExpRHS(expression));
+		printf(")\n");
 		break;
 	}
 };
