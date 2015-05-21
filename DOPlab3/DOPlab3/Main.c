@@ -106,6 +106,6 @@ void loadfile(string filename){
 			//lägg in riktig funktionalitet
 		}
 	}
-
+	 
 	fclose(infile);
 }
