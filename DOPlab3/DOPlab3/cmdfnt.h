@@ -41,5 +41,6 @@ static symtabADT commandTable;
 
 void InitCommandTable(void);
 void ExecuteCommand(string cmd, environmentADT env);
+void DefineCommand(string cmd, commandFnT fn);
 
 #endif

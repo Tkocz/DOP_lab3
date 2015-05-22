@@ -25,7 +25,7 @@ static scannerADT scanner;
 
 main(){
 	expADT exp;
-	string line, token, command, variable;
+	string line, token, command;
 	valueADT value;
 	environmentADT env;
 
@@ -129,7 +129,7 @@ static void QuitCmd(environmentADT env) {
 }
 
 void definer(string expressionLine, environmentADT env) {
-	string token,id;
+	string id;
 	expADT definition;
 	scannerADT defScanner;
 
