@@ -18,7 +18,8 @@ void LoadCmd(environmentADT env);
 void DefineCmd(environmentADT env);
 void HelpCmd(environmentADT env);
 void QuitCmd(environmentADT env);
-void loadfile(string filename);
+void definer(scannerADT scanner, environmentADT env);
+bool charExists(string text, char c);
 
 static scannerADT scanner;
 
@@ -73,57 +74,91 @@ static void defineCommandTable() {
 }
 
 /* Command dispatch functions */
-static void LoadCmd(environmentADT env)
-{
+static void LoadCmd(environmentADT env) {
+	FILE *infile;
+	string tempLine, contents;
 	string filename = "";
+
 	while (MoreTokensExist(scanner))
 		filename = Concat(filename, ReadToken(scanner));
 	printf("Command = load\n");
-	loadfile(filename,scanner);
+
+	infile = fopen(filename, "r");
+	if (infile == NULL)
+		Error("Cant open file");
+	while (tempLine = ReadLine(infile)){
+		if (!(tempLine[0] == '#' || StringEqual(tempLine, ""))){
+			if(charExists(tempLine, '{')) {
+				contents = "";
+				while (!charExists(tempLine, '}')) {
+					tempLine = Concat(" ", tempLine);
+					contents = Concat(contents, tempLine);
+					tempLine = ReadLine(infile);
+				}
+				tempLine = Concat(" ", tempLine);
+				contents = Concat(contents, tempLine);
+				definer(contents, env);
+			}
+			else{
+				definer(tempLine, env);
+			}
+		}
+	}
+	fclose(infile);
 }
 static void DefineCmd(environmentADT env) {
-	string token,id;
-	expADT defination;
+	string expression = "";
 	printf("Command = define\n");
-	id = ReadToken(scanner);
-	if (StringEqual(ReadToken(scanner), "=")== TRUE){
-		defination = ParseExp(scanner);
+	while(MoreTokensExist(scanner)) {
+		expression = Concat(expression, ReadToken(scanner));
 	}
-	else {
-		Error("Expecting '=' in define\n");
-	}
-	if (MoreTokensExist(scanner))
-		Error("Define: %s unexpected", ReadToken(scanner));
-
-	DefineIdentifier(env, id, defination, env);
+	definer(expression, env);
 }
 
 
-static void HelpCmd(environmentADT env)
-{
+static void HelpCmd(environmentADT env) {
 	printf("Available commands\n");
 	printf("\t :load <file>          Load a file with definitions.\n");
 	printf("\t :define <id >= <exp.> Define a identifier.\n");
 	printf("\t :help                 Display this text.\n");
 	printf("\t :quit                 Exit the interpreter.\n");
 }
-static void QuitCmd(environmentADT env)
-{
+
+static void QuitCmd(environmentADT env) {
 	exit(0);
 }
-void loadfile(string filename){
-	FILE *infile;
-	string tempLine;
-	infile = fopen(filename, "r");
-	if (infile == NULL)
-		Error("Cant open file");
-	while (tempLine = ReadLine(infile)){
-		if (!(tempLine[0] == '#')){
-			printf("%s\n", tempLine);
-			//lägg in riktig funktionalitet
-		}
-	}
 
-	fclose(infile);
+void definer(string expressionLine, environmentADT env) {
+	string token,id;
+	expADT definition;
+	scannerADT defScanner;
+
+	defScanner = NewScanner();
+
+	SetScannerString(defScanner, expressionLine);
+	SetScannerSpaceOption(defScanner, IgnoreSpaces);
+
+	id = ReadToken(defScanner);
+	if (StringEqual(ReadToken(defScanner), "=")== TRUE) {
+		token = ReadToken(defScanner);
+		SaveToken(defScanner, token);
+		definition = ParseExp(defScanner);
+	}
+	else {
+		Error("Expecting '=' in definition\n");
+	}
+	if (MoreTokensExist(defScanner))
+		Error("Token: %s in definition unexpected", ReadToken(defScanner));
+
+	DefineIdentifier(env, id, definition, env);
 }
 
+bool charExists(string text, char c) {
+	int i, textLength;
+	textLength = StringLength(text);
+	for(i=0; i<textLength; i++) {
+		if(text[i] == c)
+			return TRUE;
+	}
+	return FALSE;
+}
