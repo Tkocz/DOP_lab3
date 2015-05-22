@@ -28,7 +28,7 @@ main(){
 	valueADT value;
 	environmentADT env;
 
-	system("COLOR 0A");
+	system("COLOR 0B");
 
 	env = NewEnvironment();
 
