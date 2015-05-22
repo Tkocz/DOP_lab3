@@ -22,18 +22,18 @@ static symtabADT variableTable;
 
 
 /* static variables */
-static int numberOfRecursion = 0;
+static int numberOfRecursion;
 
 
 /* Private function prototypes */
 
+static valueADT Eval(expADT exp, environmentADT env);
 static valueADT EvalCompound(expADT exp, environmentADT env);
 static valueADT EvalIfExp(expADT exp, environmentADT env);
 static valueADT evalFunc(expADT exp, environmentADT env);
 static valueADT evalCall(expADT exp, environmentADT env);
 
 /* Exported entries */
-
 
 valueADT Evaluating(expADT exp, environmentADT env){
 	valueADT result;
@@ -43,47 +43,31 @@ valueADT Evaluating(expADT exp, environmentADT env){
 	return (Eval(exp, env));
 }
 
-valueADT Eval(expADT exp, environmentADT env){
-
+static valueADT Eval(expADT exp, environmentADT env){
+	/*
 	if (numberOfRecursion > 1000){
 		Error("Stack overflow.Too deep recursion.");
-	}
-	numberOfRecursion = numberOfRecursion + 1;
+	}*/
+	numberOfRecursion++;
 
 	switch (ExpType(exp)) {
 	case ConstExp: {
 		return (NewIntegerValue(ExpInteger(exp)));
 	}
 	case IdentifierExp: {
-		return (GetIdValue(ExpIdentifier(exp),env));
+		return (GetIdentifierValue(env, ExpIdentifier(exp)));
 	}
 	case CompoundExp:
 		return (EvalCompound(exp, env));
 	case FuncExp:
-		return (evalFunc(exp,NewClosure(env)));
+		return (evalFunc(exp, NewClosure(env)));
 	case IfExp:
 		return (EvalIfExp(exp, NewClosure(env)));
 	case CallExp:
-		return (evalCall(exp,NewClosure(env)));
+		return (evalCall(exp, NewClosure(env)));
 	default:
 		Error("Unidentified Evaluation");
 	}
-}
-
-void InitVariableTable(void)
-{
-	variableTable = NewSymbolTable();
-}
-
-valueADT GetIdValue(string name,environmentADT env) {
-	valueADT ip;
-
-	ip = GetIdentifierValue(env, name);
-	return (Eval(GetFuncValueBody(ip),(environmentADT)GetFuncValueClosure(ip)));
-}
-
-void SetIdValue(string name, valueADT value) {
-	Enter(variableTable, name, value);
 }
 
 /* Private functions */
@@ -99,8 +83,8 @@ static valueADT EvalCompound(expADT exp, environmentADT parent)
 
 	op = ExpOperator(exp);
 	if (op == '=') {
-		SetIdValue(ExpIdentifier(ExpLHS(exp)), Eval(ExpRHS(exp), current));
-		return (rhs);
+		DefineIdentifier(current, ExpIdentifier(ExpLHS(exp)), ExpRHS(exp), current);
+		return NewIntegerValue(rhs);
 	}
 	lhs = GetIntValue(Eval(ExpLHS(exp), current));
 	rhs = GetIntValue(Eval(ExpRHS(exp), current));
@@ -122,16 +106,23 @@ static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	op = GetIfRelOp(exp);
 	lhs = GetIntValue(Eval(GetIfLHSExpression(exp), env));	
 	rhs = GetIntValue(Eval(GetIfRHSExpression(exp), env));
-	thenSum = (Eval(GetIfThenPart(exp), env));
-	elseSum = (Eval(GetIfElsePart(exp), env));
 
 	switch (op) {
 	case '<':
-		return (lhs < rhs ? thenSum : elseSum);
+		if(lhs < rhs)
+			return (Eval(GetIfThenPart(exp), env));
+		else
+			return (Eval(GetIfElsePart(exp), env));
 	case '=':
-		return (lhs == rhs ? thenSum : elseSum);
+		if(lhs == rhs)
+			return (Eval(GetIfThenPart(exp), env));
+		else
+			return (Eval(GetIfElsePart(exp), env));
 	case '>':
-		return (lhs > rhs ? thenSum : elseSum);
+		if(lhs > rhs)
+			return (Eval(GetIfThenPart(exp), env));
+		else
+			return (Eval(GetIfElsePart(exp), env));
 	default:
 		Error("Unknown operator");
 	}
@@ -144,7 +135,7 @@ static valueADT evalCall(expADT exp, environmentADT env){
 
 	func = GetCallExp(exp);
 	arg = GetCallActualArg(exp);
-	funcValue = Eval(func, env);
+	funcValue = Evaluating(func, env);
 	/*
 	if (ValueType(funcValue) != funcValue){
 		Error("Illigal type");
@@ -152,7 +143,7 @@ static valueADT evalCall(expADT exp, environmentADT env){
 	body = GetFuncValueFormalArg(funcValue);
 	DefineIdentifier(env, body, arg, env);
 
-	return Eval(GetFuncValueBody(funcValue), env);
+	return Evaluating(GetFuncValueBody(funcValue), env);
 }
 
 static valueADT evalFunc(expADT exp, environmentADT env){

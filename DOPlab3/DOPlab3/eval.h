@@ -15,40 +15,12 @@
 #include "env.h"
 
 /*
- * Function: Eval
- * Usage: n = Eval(exp);
+ * Function: Evaluating
+ * Usage: n = Evaluating(exp);
  * ------------------------
  * This function evaluates an expression and returns its value.
  */
 
-valueADT Eval(expADT exp, environmentADT env);
-
-/*
- * Function: InitVariableTable
- * Usage: InitVariableTable();
- * ---------------------------
- * This function initializes the table used to hold the variables.
- * All variables are initially undefined.
- */
-
-void InitVariableTable(void);
-
-/*
- * Function: GetIdValue
- * Usage: value = GetIdValue(name);
- * ----------------------------------------
- * This function returns the value of an identifier.
- */
-
-valueADT GetIdValue(string name);
-
-/*
- * Function: SetIdValue
- * Usage: SetIdValue(name, value);
- * ---------------------------------------
- * This function sets the identifier to have the specified value.
- */
-
-void SetIdValue(string name, valueADT value);
+valueADT Evaluating(expADT exp, environmentADT env);
 
 #endif

@@ -53,8 +53,8 @@ main(){
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
 				printExp(exp);
-				value = GetIntValue(Evaluating(exp, env));
-				printf("%d\n", value);
+				value = (Evaluating(exp, env));
+				printf("%d\n", GetIntValue(value));
 			}
 			except(ErrorException)
 				printf("Error: %s\n", (string)GetExceptionValue());
@@ -139,9 +139,7 @@ void definer(string expressionLine, environmentADT env) {
 	SetScannerSpaceOption(defScanner, IgnoreSpaces);
 
 	id = ReadToken(defScanner);
-	if (StringEqual(ReadToken(defScanner), "=")== TRUE) {
-		token = ReadToken(defScanner);
-		SaveToken(defScanner, token);
+	if (StringEqual(ReadToken(defScanner), "=")) {
 		definition = ParseExp(defScanner);
 	}
 	else {
