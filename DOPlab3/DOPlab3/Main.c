@@ -101,7 +101,12 @@ static void DefineCmd(environmentADT env) {
 
 static void HelpCmd(environmentADT env)
 {
-	printf("Command = help\n");
+	printf("Available commands\n");
+	printf("\t :load <file>        Load a file with definitions.\n");
+	printf("\t :define <id >= <exp.> Define a identifier.\n");
+	printf("\t :type <expression>  Show the type of the given expression.\n");
+	printf("\t :help               Display this text.\n");
+	printf("\t :quit               Exit the interpreter.\n");
 }
 static void QuitCmd(environmentADT env)
 {
