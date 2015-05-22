@@ -121,7 +121,7 @@ static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	int lhs, rhs;
 
 	op = GetIfRelOp(exp);
-	lhs = GetIntValue(Eval(GetIfLHSExpression(exp), env));
+	lhs = GetIntValue(Eval(GetIfLHSExpression(exp), env));	
 	rhs = GetIntValue(Eval(GetIfRHSExpression(exp), env));
 	thenSum = (Eval(GetIfThenPart(exp), env));
 	elseSum = (Eval(GetIfElsePart(exp), env));
@@ -139,7 +139,24 @@ static valueADT EvalIfExp(expADT exp, environmentADT env) {
 }
 
 static valueADT evalCall(expADT exp, environmentADT env){
+	string body;
+	expADT arg ,func;
+	valueADT funcValue;
+	environmentADT newEnv;
 
+	func = GetCallExp(exp);
+	arg = GetCallActualArg(exp);
+	funcValue = Eval(func, env);
+
+	newEnv = NewClosure((environmentADT)GetFuncValueClosure(funcValue));
+
+	if (ValueType(funcValue) != funcValue){
+		Error("Illigal type");
+	}
+	body = GetFuncValueFormalArg(funcValue);
+	DefineIdentifier(newEnv, body, arg, env);
+
+	return Eval(GetFuncValueBody(funcValue), newEnv);
 }
 
 static valueADT evalFunc(expADT exp, environmentADT env){

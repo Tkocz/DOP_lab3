@@ -170,14 +170,18 @@ static expADT ReadF(scannerADT scanner) {
 	else if (StringEqual(token, "func")) {
 		if (StringEqual(ReadToken(scanner), "(")) {
 			token = ReadToken(scanner);
+
 			if (StringEqual(ReadToken(scanner), ")") && StringEqual(ReadToken(scanner), "{")) {
 				exp2 = ReadE(scanner);
+
 				if (!StringEqual(ReadToken(scanner), "}"))
 					Error("Unbalanced expression");
-				exp = NewFuncExp(token, exp2);
-				return exp;
 			}
+			else
+				Error("illegal function");
+				return NewFuncExp(token, exp2);
 		}
+		
 		else
 		Error("Missing parameter parenthesis");
 	}

@@ -100,29 +100,6 @@ static void DefineCmd(environmentADT env) {
 }
 
 
-/*string token;
-expADT definition;
-printf("Command = define\n");
-if (MoreTokensExist(scanner)) {
-token = ReadToken(scanner);
-if (StringEqual(ReadToken(scanner), "=")) {
-definition = ParseExp(scanner);
-switch (ExpType(definition)) {
-case FuncExp:
-printf("function!\n");
-printf("argument: %s\n", GetFuncFormalArg(definition));
-printExp(GetFuncBody(definition));
-SetIdValue(token, NewFuncValue(GetFuncFormalArg(definition), GetFuncBody(definition), env));
-break;
-default:
-SetIdValue(token, NewFuncValue("", ExpIdentifier(definition), env));
-}
-}
-else Error("Cannot load definition: %s\n", token);
-}
-else Error("Empty definition");
-
-}*/
 static void HelpCmd(environmentADT env)
 {
 	printf("Command = help\n");
