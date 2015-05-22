@@ -32,7 +32,7 @@ static valueADT EvalCompound(expADT exp, environmentADT env);
 static valueADT EvalIfExp(expADT exp, environmentADT env);
 static valueADT evalFunc(expADT exp, environmentADT env);
 static valueADT evalCall(expADT exp, environmentADT env);
-valueADT EvalIdentifier(expADT exp, environmentADT env);
+static valueADT EvalIdentifier(expADT exp, environmentADT env);
 
 /* Exported entries */
 
@@ -74,7 +74,7 @@ static valueADT Eval(expADT exp, environmentADT env){
 
 /* Private functions */
 
-valueADT EvalIdentifier(expADT exp, environmentADT env){
+static valueADT EvalIdentifier(expADT exp, environmentADT env){
 	expADT body;
 	environmentADT closure;
 	valueADT value;
