@@ -190,6 +190,17 @@ static expADT ReadF(scannerADT scanner) {
 		return exp;
 	}
 	else if (isalpha(token[0])) {
+		if(MoreTokensExist(scanner)) {
+			parenthesisCheck = ReadToken(scanner);
+			if(StringEqual(parenthesisCheck, "(")) {
+				exp = NewCallExp(NewIdentifierExp(token), ReadE(scanner));
+				if(MoreTokensExist(scanner) && StringEqual(ReadToken(scanner), ")"))
+					return exp;
+				else Error("Unbalanced parenthesis in function call");
+			}
+			else
+				SaveToken(scanner, parenthesisCheck);
+		}
 		exp = NewIdentifierExp(token);
 		return exp;
 	}

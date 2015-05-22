@@ -145,10 +145,10 @@ static valueADT evalCall(expADT exp, environmentADT env){
 	func = GetCallExp(exp);
 	arg = GetCallActualArg(exp);
 	funcValue = Eval(func, env);
-
+	/*
 	if (ValueType(funcValue) != funcValue){
 		Error("Illigal type");
-	}
+	}*/
 	body = GetFuncValueFormalArg(funcValue);
 	DefineIdentifier(env, body, arg, env);
 
