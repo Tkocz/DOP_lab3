@@ -54,7 +54,7 @@ main(){
 				exp = ParseExp(scanner);
 				printExp(exp);
 				value = (Evaluating(exp, env));
-				printf("%d\n", GetIntValue(value));
+				printValue(value);
 			}
 			except(ErrorException)
 				printf("Error: %s\n", (string)GetExceptionValue());

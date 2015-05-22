@@ -1,5 +1,9 @@
 #include "print.h"
 
+void printValue(valueADT value) {
+	printf("%d\n", GetIntValue(value));
+}
+
 void printExp(expADT expression) {
 	switch (ExpType(expression)) {
 	case FuncExp: 
