@@ -15,7 +15,7 @@ void ExecuteCommand(string cmd, environmentADT env)
 	commandEntryT entry;
 	entry = Lookup(commandTable, cmd);
 	if (entry == UNDEFINED) {
-		//printf("Undefined command: %s\n", cmd);
+		printf("Undefined command: %s\n Seek :help!\n", cmd);
 		return;
 	}
 	entry->fn(env);
