@@ -32,6 +32,7 @@ static valueADT EvalCompound(expADT exp, environmentADT env);
 static valueADT EvalIfExp(expADT exp, environmentADT env);
 static valueADT evalFunc(expADT exp, environmentADT env);
 static valueADT evalCall(expADT exp, environmentADT env);
+valueADT EvalIdentifier(expADT exp, environmentADT env);
 
 /* Exported entries */
 
@@ -44,10 +45,11 @@ valueADT Evaluating(expADT exp, environmentADT env){
 }
 
 static valueADT Eval(expADT exp, environmentADT env){
-	/*
+	
 	if (numberOfRecursion > 1000){
 		Error("Stack overflow.Too deep recursion.");
-	}*/
+	}
+
 	numberOfRecursion++;
 
 	switch (ExpType(exp)) {
@@ -55,7 +57,7 @@ static valueADT Eval(expADT exp, environmentADT env){
 		return (NewIntegerValue(ExpInteger(exp)));
 	}
 	case IdentifierExp: {
-		return Eval(GetFuncValueBody(GetIdentifierValue(env, ExpIdentifier(exp))), env);
+		return EvalIdentifier(exp, env);
 	}
 	case CompoundExp:
 		return (EvalCompound(exp, env));
@@ -64,7 +66,7 @@ static valueADT Eval(expADT exp, environmentADT env){
 	case IfExp:
 		return (EvalIfExp(exp, NewClosure(env)));
 	case CallExp:
-		return (evalCall(exp, NewClosure(env)));
+		return (evalCall(exp, env));
 	default:
 		Error("Unidentified Evaluation");
 	}
@@ -72,6 +74,20 @@ static valueADT Eval(expADT exp, environmentADT env){
 
 /* Private functions */
 
+valueADT EvalIdentifier(expADT exp, environmentADT env){
+	expADT body;
+	environmentADT closure;
+	valueADT value;
+	string ident;
+
+	ident = ExpIdentifier(exp);
+	
+	value = GetIdentifierValue(env,ident);
+	closure = GetFuncValueClosure(value);
+	body = GetFuncValueBody(value);
+
+	return Eval(body,closure);
+}
 static valueADT EvalCompound(expADT exp, environmentADT parent)
 {
 	char op;
@@ -132,18 +148,19 @@ static valueADT evalCall(expADT exp, environmentADT env){
 	string body;
 	expADT arg ,func;
 	valueADT funcValue;
+	environmentADT newEnv;
 
 	func = GetCallExp(exp);
 	arg = GetCallActualArg(exp);
 	funcValue = Evaluating(func, env);
-	/*
-	if (ValueType(funcValue) != funcValue){
-		Error("Illigal type");
-	}*/
-	body = GetFuncValueFormalArg(funcValue);
-	DefineIdentifier(env, body, arg, env);
 
-	return Evaluating(GetFuncValueBody(funcValue), env);
+	newEnv=NewClosure(env);
+
+	body = GetFuncValueFormalArg(funcValue);
+
+	DefineIdentifier(newEnv, body, arg, env);
+
+	return Evaluating(GetFuncValueBody(funcValue), newEnv);
 }
 
 static valueADT evalFunc(expADT exp, environmentADT env){
