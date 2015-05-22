@@ -60,11 +60,11 @@ valueADT Eval(expADT exp, environmentADT env){
 	case CompoundExp:
 		return (EvalCompound(exp, env));
 	case FuncExp:
-		return (evalFunc(exp,env));
+		return (evalFunc(exp,NewClosure(env)));
 	case IfExp:
-		return (EvalIfExp(exp, env));
+		return (EvalIfExp(exp, NewClosure(env)));
 	case CallExp:
-		return (evalCall(exp,env));
+		return (evalCall(exp,NewClosure(env)));
 	default:
 		Error("Unidentified Evaluation");
 	}
@@ -79,7 +79,6 @@ valueADT GetIdValue(string name,environmentADT env) {
 	valueADT ip;
 
 	ip = GetIdentifierValue(env, name);
-	//if (ip == UNDEFINED)  Error("Unknown identifier %s", name);
 	return (Eval(GetFuncValueBody(ip),(environmentADT)GetFuncValueClosure(ip)));
 }
 
@@ -142,21 +141,18 @@ static valueADT evalCall(expADT exp, environmentADT env){
 	string body;
 	expADT arg ,func;
 	valueADT funcValue;
-	environmentADT newEnv;
 
 	func = GetCallExp(exp);
 	arg = GetCallActualArg(exp);
 	funcValue = Eval(func, env);
 
-	newEnv = NewClosure((environmentADT)GetFuncValueClosure(funcValue));
-
 	if (ValueType(funcValue) != funcValue){
 		Error("Illigal type");
 	}
 	body = GetFuncValueFormalArg(funcValue);
-	DefineIdentifier(newEnv, body, arg, env);
+	DefineIdentifier(env, body, arg, env);
 
-	return Eval(GetFuncValueBody(funcValue), newEnv);
+	return Eval(GetFuncValueBody(funcValue), env);
 }
 
 static valueADT evalFunc(expADT exp, environmentADT env){

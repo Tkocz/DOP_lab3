@@ -32,7 +32,6 @@ main(){
 
 	env = NewEnvironment();
 
-	InitVariableTable();
 	InitCommandTable();
 	defineCommandTable();
 
