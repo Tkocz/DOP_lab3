@@ -1,0 +1,22 @@
+Def ::= identifier = E 				// Only in files and in the
+									// :define command
+E ::= T + E
+E ::= T - E
+E ::= T
+
+T ::= C * T
+T ::= C / T
+T ::= C
+
+C ::= F (E) 						// Call to function.
+C ::= F
+
+F ::= (E)
+F ::= if E RelOp E then E else E	// If-expression
+F ::= func (identifier) { E }		// Function with argument
+F ::= integer
+F ::= identifier
+
+RelOp ::= =
+RelOp ::= <
+RelOp ::= >

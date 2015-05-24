@@ -29,11 +29,10 @@ expADT ParseExp(scannerADT scanner)
 
 /*
 * Implementation notes: ReadE
-* Usage: exp = ReadE(scanner, prec);
+* Usage: exp = ReadE(scanner);
 * ----------------------------------
 * This function reads an expression from the scanner stream,
-* stopping when it encounters an operator whose precedence is
-* less that or equal to prec.
+* following the grammar specified in *grammar.txt*.
 */
 
 static expADT ReadE(scannerADT scanner)

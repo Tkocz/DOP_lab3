@@ -122,6 +122,9 @@
   <ItemGroup>
     <Library Include="pclibs\PCLibs2012.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Docs\grammar.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
