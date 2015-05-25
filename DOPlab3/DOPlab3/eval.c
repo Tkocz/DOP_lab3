@@ -52,7 +52,7 @@ static valueADT Eval(expADT exp, environmentADT env){
 		case IfExp:
 			return (EvalIfExp(exp, NewClosure(env)));
 		case CallExp:
-			return (evalCall(exp, NewClosure(env)));
+			return (evalCall(exp, env));
 		default:
 			Error("Unidentified Evaluation");
 	}
