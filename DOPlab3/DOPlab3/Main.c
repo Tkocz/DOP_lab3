@@ -44,6 +44,9 @@ main(){
 
 	scanner = NewScanner();
 	SetScannerSpaceOption(scanner, IgnoreSpaces);
+
+	printf("Created by Alexander Pihl, Christoffer Olsson & Martin Bergqvist\nASYAR14\n\n");
+	
 	while (TRUE) {
 		try {
 			printf("=> ");
