@@ -13,11 +13,13 @@
 #include "strlib.h"
 #include "cmdfnt.h"
 
-/* Function prototypes */
+/* Command dispatch function prototypes */
 void LoadCmd(environmentADT env);
 void DefineCmd(environmentADT env);
 void HelpCmd(environmentADT env);
 void QuitCmd(environmentADT env);
+
+/* Helper-functions */
 void definer(scannerADT scanner, environmentADT env);
 bool charExists(string text, char c);
 
@@ -56,7 +58,7 @@ main(){
 			else{
 				SaveToken(scanner, token);
 				exp = ParseExp(scanner);
-				printExp(exp);
+//				printExp(exp);					//Used for debug purpouses only
 				value = (Evaluating(exp, env));
 				printValue(value);
 			}
@@ -118,7 +120,6 @@ static void DefineCmd(environmentADT env) {
 	}
 	definer(expression, env);
 }
-
 
 static void HelpCmd(environmentADT env) {
 	printf("Available commands\n");

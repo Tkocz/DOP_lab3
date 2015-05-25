@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+/* Private function prototypes */
 static expADT ReadE(scannerADT scanner);
 static expADT ReadT(scannerADT scanner);
 static expADT ReadC(scannerADT scanner);
@@ -52,20 +53,6 @@ static expADT ReadE(scannerADT scanner)
 	return (exp);
 }
 
-/*
-* Function: ReadT
-* Usage: exp = ReadT(scanner);
-* ----------------------------
-* This function reads a single term from the scanner by matching
-* the input to one of the following grammatical rules:
-*
-*       T  ->  integer
-*       T  ->  identifier
-*       T  ->  ( E )
-*
-* In each case, the first token identifies the appropriate rule.
-*/
-
 static expADT ReadT(scannerADT scanner){
 	expADT exp;
 	string token;
@@ -86,7 +73,6 @@ static expADT ReadT(scannerADT scanner){
 	}
 	return(exp);
 }
-
 
 static expADT ReadC(scannerADT scanner) {
 	expADT exp;
