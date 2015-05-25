@@ -102,7 +102,6 @@ static valueADT EvalCompound(expADT exp, environmentADT parent)
 
 static valueADT EvalIfExp(expADT exp, environmentADT env) {
 	char op;
-	valueADT  thenSum, elseSum;
 	int lhs, rhs;
 
 	op = GetIfRelOp(exp);
