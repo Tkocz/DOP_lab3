@@ -1,9 +1,7 @@
 /*
-* File: env.h
+* File: cmdftn.h
 * ------------
-* This file is the interface to the environment module, which
-* represents the environment (set of definitions) available
-* in a certain lexical scope in MFL.
+* This file manages commandfunctions
 */
 
 #ifndef _cmdfnt_h

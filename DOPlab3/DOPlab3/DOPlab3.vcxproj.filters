@@ -71,9 +71,6 @@
     <ClInclude Include="pclibs\genlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pclibs\random.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="pclibs\simpio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,12 +84,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pclibs\gcalloc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pclibs\graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pclibs\mazelib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cmdfnt.h">

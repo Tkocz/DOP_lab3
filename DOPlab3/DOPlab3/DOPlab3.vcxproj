@@ -102,9 +102,6 @@
     <ClInclude Include="pclibs\extgraph.h" />
     <ClInclude Include="pclibs\gcalloc.h" />
     <ClInclude Include="pclibs\genlib.h" />
-    <ClInclude Include="pclibs\graphics.h" />
-    <ClInclude Include="pclibs\mazelib.h" />
-    <ClInclude Include="pclibs\random.h" />
     <ClInclude Include="pclibs\simpio.h" />
     <ClInclude Include="pclibs\strlib.h" />
     <ClInclude Include="StartFiles\IntExpInterp\scanadt.h" />

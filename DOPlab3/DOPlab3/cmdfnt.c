@@ -6,8 +6,10 @@
 #include "cmdfnt.h"
 #include "scanadt.h"
 
-
+/* static variables */
 static symtabADT commandTable;
+
+/* Exported entries */
 
 void DefineCommand(string cmd, commandFnT fn)
 {
