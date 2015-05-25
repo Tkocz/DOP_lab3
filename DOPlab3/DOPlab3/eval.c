@@ -77,25 +77,27 @@ static valueADT EvalIdentifier(expADT exp, environmentADT env){
 static valueADT EvalCompound(expADT exp, environmentADT parent)
 {
 	char op;
-	valueADT value;
-	int lhs, rhs;
+	int value;
+	valueADT lhs, rhs;
 
 	environmentADT current;
-	current = NewClosure(parent);
+	//current = NewClosure(parent);
 
 	op = ExpOperator(exp);
-	if (op == '=') {
+	/*if (op == '=') {
 		DefineIdentifier(current, ExpIdentifier(ExpLHS(exp)), ExpRHS(exp), current);
 		return NewIntegerValue(rhs);
-	}
-	lhs = GetIntValue(Eval(ExpLHS(exp), current));
-	rhs = GetIntValue(Eval(ExpRHS(exp), current));
+	}*/
+	lhs = Eval(ExpLHS(exp), parent);
+	rhs = Eval(ExpRHS(exp), parent);
+
+		value = GetIntValue(rhs);
 
 	switch (op) {
-		case '+': return NewIntegerValue(lhs + rhs);
-		case '-': return NewIntegerValue(lhs - rhs);
-		case '*': return NewIntegerValue(lhs * rhs);
-		case '/': return NewIntegerValue(lhs / rhs);
+	case '+': return NewIntegerValue(GetIntValue(lhs) + value);
+	case '-': return NewIntegerValue(GetIntValue(lhs) - value);
+	case '*': return NewIntegerValue(GetIntValue(lhs) * value);
+	case '/': return NewIntegerValue(GetIntValue(lhs) / value);
 		default:  Error("Illegal operator");
 	}
 }
@@ -135,12 +137,12 @@ static valueADT evalCall(expADT exp, environmentADT env){
 	valueADT funcValue;
 	environmentADT newEnv;
 
+   
+
 	func = GetCallExp(exp);
 	arg = GetCallActualArg(exp);
-	funcValue = Evaluating(func, env);
-
-	newEnv=NewClosure(env);
-
+	funcValue = Eval(func,env);
+	newEnv = NewClosure(GetFuncValueClosure(funcValue));
 	body = GetFuncValueFormalArg(funcValue);
 
 	DefineIdentifier(newEnv, body, arg, env);
