@@ -13,7 +13,7 @@
 #include "strlib.h"
 #include "cmdfnt.h"
 
-static void defineCommandTable();
+/* Function prototypes */
 void LoadCmd(environmentADT env);
 void DefineCmd(environmentADT env);
 void HelpCmd(environmentADT env);
@@ -21,6 +21,10 @@ void QuitCmd(environmentADT env);
 void definer(scannerADT scanner, environmentADT env);
 bool charExists(string text, char c);
 
+/* Private function prototypes */
+static void defineCommandTable();
+
+/* static variables */
 static scannerADT scanner;
 
 main(){

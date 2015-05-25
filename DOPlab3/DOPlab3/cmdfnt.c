@@ -1,3 +1,8 @@
+/*
+* File: cmdftn.c
+* ------------
+* This file implements the cmdftn.h interface.
+*/
 #include "cmdfnt.h"
 #include "scanadt.h"
 
