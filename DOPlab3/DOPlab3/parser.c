@@ -75,10 +75,8 @@ static expADT ReadT(scannerADT scanner){
 }
 
 static expADT ReadC(scannerADT scanner) {
-	expADT exp;
+	expADT exp, arg, call;
 	string token;
-	string arg;
-	expADT func;
 
 	if (!MoreTokensExist(scanner)){
 		Error("Tried to read empty scanner");
@@ -87,11 +85,12 @@ static expADT ReadC(scannerADT scanner) {
 	if (MoreTokensExist(scanner)){
 		token = ReadToken(scanner);
 		if (token[0] == '('){
-			arg = ReadToken(scanner);
+			arg = ReadE(scanner);
 			if (!StringEqual(ReadToken(scanner), ")")) {
 				Error("Unbalanced parentheses");
 			}
-			func = NewFuncExp(arg, exp);
+			call = NewCallExp(exp, arg);
+			return call;
 		}
 		else
 			SaveToken(scanner, token);
