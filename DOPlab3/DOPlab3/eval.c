@@ -146,7 +146,7 @@ static valueADT evalCall(expADT exp, environmentADT env){
 
 	DefineIdentifier(newEnv, body, arg, env);
 
-	return Evaluating(GetFuncValueBody(funcValue), newEnv);
+	return Eval(GetFuncValueBody(funcValue), newEnv);
 }
 
 static valueADT evalFunc(expADT exp, environmentADT env){
